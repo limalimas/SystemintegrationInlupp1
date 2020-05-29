@@ -2,7 +2,6 @@ package Project;
 
 import java.io.IOException;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ManagingDB {
@@ -31,12 +30,6 @@ public class ManagingDB {
                 reading.setHumidity(humidity);
                 reading.setCreatedDate(createdDate);
                 readings.add(reading);
-
-                System.out.println("Id: " + id);
-                System.out.println("Luminosity: " + luminosity);
-                System.out.println("Temperature: " + temperature);
-                System.out.println("Humidity: " + humidity);
-                System.out.println("Created: " + createdDate);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -44,32 +37,36 @@ public class ManagingDB {
         return readings;
     }
 
-    public ValueReading getLatestTempReadingFromDb() {
+    public int getLatestTempReadingFromDb() throws SQLException, IOException, ClassNotFoundException {
+        int temp = 0;
+        for(ValueReading vr : ListOfReadings()) {
+            temp = vr.getTemperature();
+        }
+        return temp;
+    }
 
+    public int getLatestHumReadingFromDb() throws SQLException, IOException, ClassNotFoundException {
+        int hum = 0;
+        for(ValueReading vr : ListOfReadings()) {
+            hum = vr.getHumidity();
+        }
+        return hum;
+    }
+
+    public int getLatestLumReadingFromDb() throws SQLException, IOException, ClassNotFoundException {
+        int lum = 0;
+        for(ValueReading vr : ListOfReadings()) {
+            lum = vr.getTemperature();
+        }
+        return lum;
+    }
+
+    public ValueReading getEnergy(Date date) throws SQLException, IOException, ClassNotFoundException {
+        for(ValueReading vr : ListOfReadings()) {
+            if(vr.getCreatedDate() == date){
+                return vr;
+            }
+        }
         return null;
-    }
-
-    public ValueReading getLatestHumReadingFromDb() {
-        return null;
-    }
-
-    public ValueReading getLatestLumReadingFromDb() {
-        return null;
-    }
-
-    public float getAverage(String temperature) {
-        return 5;
-    }
-
-    public ArrayList<ValueReading> getReadingsFromDb() {
-        return readings;
-    }
-
-    public int getEnergy(LocalDate date) {
-        return 0;
-    }
-
-    public int getEnergy() {
-        return 0;
     }
 }

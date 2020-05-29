@@ -9,7 +9,16 @@ public class ValueReading {
     private Date createdDate;
     private int id;
 
+
+
+    private int energy;
+
     ValueReading(){ }
+
+
+    public int getEnergy() { return energy; }
+
+    public void setEnergy(int energy) { this.energy = energy; }
 
     public int getTemperature() {
         return temperature;
